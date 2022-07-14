@@ -21,7 +21,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 url='http://www.uazone.com/gis/022098fedreg.txt'
 headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1'}
-
+aa=[]
+f=open('aa.txt')
+for v in f: aa.append(v.strip())
 
 res=requests.get(url,headers=headers)
 text=res.text
@@ -30,7 +32,8 @@ text=re.sub('[^a-z]',' ',text)
 a=text.split(' ')
 m={}
 for v in a:
-    if v in m: m[v]+=1
-    else: m[v]=1
+    if v not in aa:
+        if v in m: m[v]+=1
+        else: m[v]=1
 r=sorted(m.items(),key=itemgetter(1),reverse=True)
 print(r)
